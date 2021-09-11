@@ -127,35 +127,28 @@ export default {
       }
     }
 
-    const clearCompletedStatus = () => {
+    const clearCompletedStatus = async () => {
       try {
-            todos.value.filter(async todo => {
-              if (todo.status === "completed") {
-                const {data} = await axios.delete(`http://localhost:3000/todos/${todo.id}`);
-                todos.value = todos.value.filter(item => item.id !== todo.id)
-              }
-            })
+        let reqs = []
+        todos.value.filter(todo => {
+          if (todo.status === "completed") {
+            reqs.push(axios.delete(`http://localhost:3000/todos/${todo.id}`))
+          }
+        })
+        const {status} = await axios.all(reqs);
+        if (status === 200) {
+          todos.value = todos.value.filter(todo => todo.status !== "completed")
+        }
+        // todos.value = data
+        // todos.value.filter(async todo => {
+        //   if (todo.status === "completed") {
+        //     const {data} = await axios.delete(`http://localhost:3000/todos/${todo.id}`);
+        //     todos.value = todos.value.filter(item => item.id !== todo.id)
+        //   }
+        // })
       } catch (e) {
         console.log(e)
       }
-      // try {
-      //   let mamad = []
-      //   let waitingTodos = todos.value.filter(todo => {
-      //     if (todo.status === "completed") {
-      //       mamad.push(todo.id)
-      //     }
-      //   })
-      //   // waitingTodos = waitingTodos.map(todo => todo.id)
-      //   console.log(mamad)
-      //   // let ids = waitingTodos.map(todo => todo.id)
-      //   // console.log(ids)
-      //   mamad.map(async id => {
-      //     const {data} = await axios.delete(`http://localhost:3000/todos/${id}`);
-      //   })
-      //   todos.value = data;
-      // } catch (e) {
-      //   console.log(e)
-      // }
     }
 
 
@@ -171,43 +164,6 @@ export default {
       clearCompletedStatus
     }
   },
-  data() {
-    return {
-      // todos: [],
-      // todo: {
-      // title: null,
-      // description: null,
-      // status: "waiting"
-      // }
-    }
-  },
-  // methods: {
-  //   // handleAddTodo() {
-  //   //   this.todos.push({
-  //   //     id: Math.random() * 9999999,
-  //   //     title: this.title,
-  //   //     description: this.description,
-  //   //     status: this.status
-  //   //   });
-  //   // },
-  //   handleCompletedStatus(id) {
-  //     console.log(id)
-  //     let todo = this.todos.find(todo => todo.id === id);
-  //     todo.status = "completed"
-  //   },
-  //   handleRemoveTodo(id) {
-  //     console.log(id)
-  //     this.todos = this.todos.filter(todo => todo.id !== id)
-  //   },
-  //   handleFilterTodos(status) {
-  //     this.todos.filter(todo => todo.status === status)
-  //   },
-  // },
-  // computed: {
-  //   filteredWaitingTodos() {
-  //     return this.todos.filter(todo => todo.status === "waiting")
-  //   },
-  // }
 }
 </script>
 
