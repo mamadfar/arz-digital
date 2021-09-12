@@ -1,0 +1,154 @@
+// @import "./modules/dark-mode.scss";
+// @import "./modules/light-mode.scss";
+// @use "../dependencies/variables";
+@import "../scss/dependencies/variables.scss";
+@import "../scss/dependencies/root.scss";
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    font-size: 18px;
+    color: var(--text-color);
+    max-width: 100%;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+#app {
+    width: 100%;
+    height: 100vh;
+    text-align: center;
+    background: var(--url) no-repeat top center;
+    background-size: 100% 35%;
+}
+
+.container {
+    width: 40%;
+    margin: 0 auto;
+    padding-top: 50px;
+}
+
+.todo-header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    h1 {
+        text-transform: uppercase;
+        color: #fff;
+    }
+
+    &>div {
+        align-self: center;
+    }
+}
+
+//! START: placeholders
+%circle {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #eee;
+    border-radius: 50%;
+    vertical-align: bottom;
+
+    &:hover {
+        transition: all 0.3s;
+        border: 1px solid transparent;
+        background: linear-gradient(to right, hsl(192, 100%, 67%), hsl(280, 87%, 65%)) border-box;
+        -webkit-mask:
+            linear-gradient(#fff 0 0) padding-box,
+            linear-gradient(#fff 0 0);
+        -webkit-mask-composite: destination-out;
+        mask-composite: exclude;
+    }
+}
+
+%button {
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
+
+//? END: placeholders
+
+.new-todo {
+    display: flex;
+    flex-wrap: nowrap;
+    background-color: var(--background-color);
+    padding: 15px;
+    border-radius: 8px;
+
+    input {
+        border: none;
+        width: 100%;
+        padding: 5px 2px 2px 5px;
+        outline: none;
+        font-size: 1.2em;
+    }
+
+    button {
+        @extend %button;
+
+        & span.circle {
+            @extend %circle;
+        }
+
+    }
+}
+
+.todos-list {
+    list-style: none;
+    margin: 1.5rem 0;
+    padding: 0;
+    width: 100%;
+    background-color: #fff;
+    border: none;
+    border-radius: 8px;
+
+    li {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 15px;
+
+        &:not(:last-child) {
+            border-bottom: 1px solid #ccc;
+        }
+
+        &>div {
+            button {
+                @extend %button;
+
+                & span.circle {
+                    @extend %circle;
+                }
+            }
+        }
+
+        p {
+            margin: 0 0 0 10px;
+            vertical-align: bottom
+        }
+
+        & .remove-todo {
+            @extend %button;
+            opacity: 0;
+            visibility: hidden;
+            margin-left: auto;
+            cursor: pointer;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        &:hover .remove-todo {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+}
+
+.completed {
+    text-decoration: line-through;
+    color: #999;
+}
