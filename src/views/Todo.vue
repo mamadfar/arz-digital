@@ -4,15 +4,15 @@
     <div class="todo-header">
       <h1>Todo</h1>
       <div
-        class="cursor-pointer"
-        @click="toggleTheme"
-        aria-label="Toggle themes"
+          class="cursor-pointer"
+          @click="toggleTheme"
+          aria-label="Toggle themes"
       >
         <div v-if="theme !== 'darkMode'">
-          <img src="../assets/images/icon-moon.svg" alt="dark mode" />
+          <img src="../assets/images/icon-moon.svg" alt="dark mode"/>
         </div>
         <div v-else>
-          <img src="../assets/images/icon-sun.svg" alt="light mode" />
+          <img src="../assets/images/icon-sun.svg" alt="light mode"/>
         </div>
       </div>
     </div>
@@ -23,44 +23,66 @@
         <button>
           <span class="circle"></span>
         </button>
-        <input type="text" v-model="title" />
+        <input type="text" placeholder="Create a new todo..." v-model="title"/>
       </div>
     </form>
     <!--//? END: new todo form -->
 
     <ul class="todos-list">
-      <li v-for="todo in todos" :key="todo.id">
+      <li v-for="todo in todos" :key="todo.id" v-if="todos.length > 0">
         <div>
           <button v-if="todo.status === 'completed'" class="completed" @click="handleChangeStatus(todo.id, false)">
-            <img src="../assets/images/icon-check.svg" alt="Completed">
+            <span class="checked">
+                <img src="../assets/images/icon-check.svg" alt="Completed">
+            </span>
           </button>
           <button v-else @click="handleChangeStatus(todo.id, true)">
             <span class="circle"></span>
           </button>
         </div>
-        <p :class="[todo.status === 'waiting' ? '' : 'completed']">
+        <p :class="[todo.status === 'active' ? 'active' : 'completed']">
           {{ todo.title }}
         </p>
         <button @click="removeTodo(todo.id)" class="remove-todo">
-          <img src="../assets/images/icon-check.svg" alt="Delete">
+          <img src="../assets/images/icon-cross.svg" alt="Delete">
         </button>
       </li>
+      <li v-else>
+        <p>Your Great !</p>
+      </li>
+      <li>
+        <div class="command-palette">
+          <div>
+            <small>{{ todos.filter((todo) => todo.status === "active").length }} items left</small>
+          </div>
+          <div>
+            <label for="all" class="cursor-pointer filter-style" @click="filterTodos('')">
+              <input style="visibility: hidden; opacity: 0; position: absolute" id="all" type="radio" name="filter"
+                     checked/>
+              <span>All</span>
+            </label>
+            <label for="active" class="cursor-pointer filter-style" @click="filterTodos('active')">
+              <input style="visibility: hidden; opacity: 0; position: absolute" id="active" type="radio" name="filter"/>
+              <span>Active</span>
+            </label>
+            <label for="completed" class="cursor-pointer filter-style" @click="filterTodos('completed')">
+              <input style="visibility: hidden; opacity: 0; position: absolute" id="completed" type="radio"
+                     name="filter"/>
+              <span>Completed</span>
+            </label>
+          </div>
+          <div>
+            <button class="cursor-pointer" @click="clearCompletedStatus()">Clear Completed</button>
+          </div>
+        </div>
+      </li>
     </ul>
-    <div v-if="todos.length">
-      <button @click="filterTodos('completed')">completed</button>
-      <button @click="filterTodos('waiting')">waiting</button>
-      <button @click="filterTodos('')">all</button>
-    </div>
-    <button @click="clearCompletedStatus()">remove all completed todo</button>
-    <div v-if="todos.length > 0">
-      {{ todos.filter((todo) => todo.status === "waiting").length }} items left
-    </div>
   </div>
 </template>
 
 <script>
-import { ref, reactive, computed } from "@vue/reactivity";
-import { watch, watchEffect } from "@vue/runtime-core";
+import {ref, reactive, computed} from "@vue/reactivity";
+import {watch, watchEffect} from "@vue/runtime-core";
 import axios from "axios";
 
 export default {
@@ -70,14 +92,14 @@ export default {
     const todos = ref([]);
     const title = ref(null);
     // const description = ref(null);
-    const status = ref("waiting");
+    const status = ref("active");
     const theme = ref("");
 
     watchEffect(async () => {
       let localTheme = localStorage.getItem("theme"); //gets stored theme value if any
       document.documentElement.setAttribute("data-theme", localTheme); // updates the data-theme attribute
       try {
-        const { data } = await axios.get("http://localhost:3000/todos");
+        const {data} = await axios.get("http://localhost:3000/todos");
         todos.value = data;
       } catch (e) {
         console.log(e);
@@ -86,7 +108,7 @@ export default {
 
     const addTodo = async () => {
       try {
-        const { data } = await axios.post("http://localhost:3000/todos", {
+        const {data} = await axios.post("http://localhost:3000/todos", {
           id: Math.random() * 99999999,
           title: title.value,
           // description: description.value,
@@ -120,8 +142,8 @@ export default {
 
     const removeTodo = async (id) => {
       try {
-        const { status } = await axios.delete(
-          `http://localhost:3000/todos/${id}`
+        const {status} = await axios.delete(
+            `http://localhost:3000/todos/${id}`
         );
         todos.value = todos.value.filter((todo) => todo.id !== id);
       } catch (e) {
@@ -142,12 +164,12 @@ export default {
 
     const handleChangeStatus = async (id, isCompleted) => {
       try {
-        const { data } = await axios.patch(
-          `http://localhost:3000/todos/${id}`,
-          { status: isCompleted ? "completed" : "waiting" }
+        const {data} = await axios.patch(
+            `http://localhost:3000/todos/${id}`,
+            {status: isCompleted ? "completed" : "active"}
         );
         let todo = todos.value.find((todo) => todo.id === id);
-        todo.status = isCompleted ? "completed" : "waiting";
+        todo.status = isCompleted ? "completed" : "active";
         // todos.value = [...todos.value, data]
       } catch (e) {
         console.log(e);
@@ -156,8 +178,8 @@ export default {
 
     const filterTodos = async (status) => {
       try {
-        const { data } = await axios.get(
-          `http://localhost:3000/todos${status ? `?status=${status}` : ""}`
+        const {data} = await axios.get(
+            `http://localhost:3000/todos${status ? `?status=${status}` : ""}`
         );
         todos.value = data;
       } catch (e) {
@@ -173,7 +195,7 @@ export default {
             reqs.push(axios.delete(`http://localhost:3000/todos/${todo.id}`));
           }
         });
-        const { status } = await axios.all(reqs);
+        const {status} = await axios.all(reqs);
         // if (status === 200) {
         todos.value = todos.value.filter((todo) => todo.status !== "completed");
         // }
@@ -211,7 +233,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-
-</style>

@@ -5,150 +5,209 @@
 @import "../scss/dependencies/root.scss";
 
 body {
-    margin: 0;
-    padding: 0;
-    background-color: var(--background-color);
-    font-size: 18px;
-    color: var(--text-color);
-    max-width: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: var(--background-color);
+  font-size: 18px;
+  color: var(--text-color);
+  max-width: 100%;
 }
 
 .cursor-pointer {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 #app {
-    width: 100%;
-    height: 100vh;
-    text-align: center;
-    background: var(--url) no-repeat top center;
-    background-size: 100% 35%;
+  width: 100%;
+  height: 100vh;
+  text-align: center;
+  background: var(--url) no-repeat top center;
+  background-size: 100% 35%;
 }
 
 .container {
-    width: 40%;
-    margin: 0 auto;
-    padding-top: 50px;
+  width: 45%;
+  margin: 0 auto;
+  padding-top: 50px;
+  @media screen and (min-width: 375px) and (max-width: 600px)  {
+	width: 90%;
+  }
+  @media screen and (min-width: 600.98px) and (max-width: 1000px)  {
+	width: 70%;
+  }
 }
 
 .todo-header {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 
-    h1 {
-        text-transform: uppercase;
-        color: #fff;
-    }
+  h1 {
+	text-transform: uppercase;
+	color: #fff;
+  }
 
-    &>div {
-        align-self: center;
-    }
+  & > div {
+	align-self: center;
+  }
 }
 
 //! START: placeholders
 %circle {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    border: 1px solid #eee;
-    border-radius: 50%;
-    vertical-align: bottom;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--dark-grayish-blue);
+  border-radius: 50%;
+  vertical-align: bottom;
 
-    &:hover {
-        transition: all 0.3s;
-        border: 1px solid transparent;
-        background: linear-gradient(to right, hsl(192, 100%, 67%), hsl(280, 87%, 65%)) border-box;
-        -webkit-mask:
-            linear-gradient(#fff 0 0) padding-box,
-            linear-gradient(#fff 0 0);
-        -webkit-mask-composite: destination-out;
-        mask-composite: exclude;
-    }
+  &:hover {
+	transition: all 0.3s;
+	border: 1px solid transparent;
+	background: linear-gradient(to right, hsl(192, 100%, 67%), hsl(280, 87%, 65%)) border-box;
+	-webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+	-webkit-mask-composite: destination-out;
+	mask-composite: exclude;
+  }
 }
 
 %button {
-    border: none;
-    outline: none;
-    background-color: transparent;
+  border: none;
+  outline: none;
+  background-color: transparent;
 }
 
 //? END: placeholders
 
 .new-todo {
-    display: flex;
-    flex-wrap: nowrap;
-    background-color: var(--background-color);
-    padding: 15px;
-    border-radius: 8px;
+  display: flex;
+  flex-wrap: nowrap;
+  background-color: var(--todo-backgroun-color);
+  padding: 15px;
+  border-radius: 8px;
 
-    input {
-        border: none;
-        width: 100%;
-        padding: 5px 2px 2px 5px;
-        outline: none;
-        font-size: 1.2em;
-    }
+  input {
+	border: none;
+	width: 100%;
+	padding: 5px 2px 2px 5px;
+	outline: none;
+	font-size: 1em;
+	background-color: inherit;
+	color: var(--todo-text-color);
+  }
 
-    button {
-        @extend %button;
+  button {
+	@extend %button;
+	padding: 0;
 
-        & span.circle {
-            @extend %circle;
-        }
+	& span.circle {
+	  @extend %circle;
+	}
 
-    }
+  }
 }
 
 .todos-list {
-    list-style: none;
-    margin: 1.5rem 0;
-    padding: 0;
-    width: 100%;
-    background-color: #fff;
-    border: none;
-    border-radius: 8px;
+  list-style: none;
+  margin: 1.5rem 0;
+  padding: 0;
+  width: 100%;
+  background-color: var(--todo-backgroun-color);
+  border: none;
+  border-radius: 8px;
 
-    li {
-        display: flex;
-        flex-wrap: wrap;
-        padding: 15px;
+  li {
+	display: flex;
+	flex-wrap: wrap;
+	padding: 15px;
 
-        &:not(:last-child) {
-            border-bottom: 1px solid #ccc;
-        }
+	&:not(:last-child) {
+	  border-bottom: 1px solid var(--dark-grayish-blue);
+	}
 
-        &>div {
-            button {
-                @extend %button;
+	&:not(:last-child) {
+	  & > div {
+		button {
+		  @extend %button;
+		  padding: 0;
 
-                & span.circle {
-                    @extend %circle;
-                }
-            }
-        }
+		  & span.circle {
+			@extend %circle;
+		  }
+		  & span.checked {
+			display: inline-block;
+			width: 20px;
+			height: 20px;
+			background: linear-gradient(to right, hsl(192, 100%, 67%), hsl(280, 87%, 65%)) border-box;
+			border: 1px solid transparent;
+			border-radius: 50%;
+		  vertical-align: bottom;
+			& img {
+			  vertical-align: middle;
+			}
+		  }
+		}
+	  }
+	}
 
-        p {
-            margin: 0 0 0 10px;
-            vertical-align: bottom
-        }
+	p {
+	  margin: 0 0 0 10px;
+	  vertical-align: bottom
+	}
 
-        & .remove-todo {
-            @extend %button;
-            opacity: 0;
-            visibility: hidden;
-            margin-left: auto;
-            cursor: pointer;
-            transition: opacity 0.3s, visibility 0.3s;
-        }
-        &:hover .remove-todo {
-            opacity: 1;
-            visibility: visible;
-        }
-    }
+	& .remove-todo {
+	  @extend %button;
+	  opacity: 0;
+	  visibility: hidden;
+	  margin-left: auto;
+	  cursor: pointer;
+	  transition: opacity 0.3s, visibility 0.3s;
+	}
+
+	&:hover .remove-todo {
+	  opacity: 1;
+	  visibility: visible;
+	}
+  }
 }
 
 .completed {
-    text-decoration: line-through;
-    color: #999;
+  text-decoration: line-through;
+  color: var(--dark-grayish-blue);
+}
+
+.command-palette {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
+
+  & > div small {
+	color: var(--dark-grayish-blue);
+  }
+
+  &:last-child button {
+	@extend %button;
+	color: var(--dark-grayish-blue);
+	transition: color 0.3s;
+
+	&:hover {
+	  color: var(--light-grayish-blue-hover);
+	}
+  }
+}
+
+.filter-style {
+  margin: 0 5px;
+  font-size: 0.9rem;
+  color: var(--dark-grayish-blue);
+  transition: color 0.3s;
+
+  &:hover {
+	color: var(--light-grayish-blue-hover);
+  }
+
+  & input:checked + span {
+	color: lightskyblue;
+  }
 }
