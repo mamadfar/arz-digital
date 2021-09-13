@@ -10,7 +10,15 @@ yarn install
 yarn serve
 ```
 
-### Compiles and minifies for production
+### Run server to send request and get data
 ```
-yarn build
+yarn db
 ```
+
+OR
+
+```
+npm run db
+```
+
+**Make sure you run both `yarn serve` and `yarn db` in separate terminal, bash or shell**
