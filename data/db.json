@@ -1,14 +1,3 @@
 {
-  "todos": [
-    {
-      "id": 66475553.59763357,
-      "title": "mamad",
-      "status": "completed"
-    },
-    {
-      "id": 94079122.18928948,
-      "title": "fasdfsf",
-      "status": "active"
-    }
-  ]
+  "todos": []
 }

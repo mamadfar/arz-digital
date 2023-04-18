@@ -8,7 +8,7 @@ export default createStore({
         title: "mamad",
         description: "hastam",
         status: "waiting"
-      },
+      }
     ]
   },
   mutations: {

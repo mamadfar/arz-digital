@@ -9,6 +9,12 @@ export default createStore({
         description: "hastam",
         status: "waiting"
       },
+      {
+        id: Math.random() * 9999999,
+        title: "mamad2",
+        description: "hastam",
+        status: "waiting"
+      }
     ]
   },
   mutations: {
