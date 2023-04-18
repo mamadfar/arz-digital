@@ -20,5 +20,5 @@ yarn serve
 **Make sure you run both `yarn serve` and `yarn db` in separate terminal, bash or shell**
 
 ## Preview
-![Todo](./src/assets/todo.gif)
+![Todo](./src/assets/todo-preview.gif)
 
