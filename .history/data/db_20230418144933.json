@@ -1,10 +1,14 @@
 {
+<<<<<<< HEAD
+  "todos": []
+=======
   "todos": [
     {
       "id": 40148421.188003734,
-      "title": "Hello World",
+      "title": "ali",
       "date": "2021-09-29",
       "status": "active"
     }
   ]
+>>>>>>> 8a8ccf3c21ac411f99357bec7013f6d44588e6ef
 }

@@ -1,0 +1,19 @@
+
+
+@media screen and (max-width: 999.98px)  {
+	.desktop-filters {
+        display: none;
+    }
+    .mobile-filters {
+        display: flex;
+    }
+  }
+
+  @media screen and (min-width: 1000px)  {
+    .desktop-filters {
+        display: block;
+    }
+    .mobile-filters {
+        display: none;
+    }
+  }

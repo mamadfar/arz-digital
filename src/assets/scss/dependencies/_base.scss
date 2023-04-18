@@ -1,0 +1,39 @@
+.d-flex {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.ml-auto {
+    margin-left: auto !important;
+}
+
+//! START: placeholders
+%circle {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 1px solid var(--dark-grayish-blue);
+    border-radius: 50%;
+    vertical-align: bottom;
+
+    &:hover {
+        transition: all 0.3s;
+        border: 1px solid transparent;
+        background: linear-gradient(to right, hsl(192, 100%, 67%), hsl(280, 87%, 65%)) border-box;
+        -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: destination-out;
+        mask-composite: exclude;
+    }
+}
+
+%button {
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
+
+//? END: placeholders

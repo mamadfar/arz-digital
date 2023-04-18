@@ -1,0 +1,37 @@
+// @use "../dependencies/variables.scss";
+
+.todo-footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+  
+    & > div small {
+      color: var(--dark-grayish-blue);
+    }
+  
+    &:last-child button {
+      @extend %button;
+      color: var(--dark-grayish-blue);
+      transition: color 0.3s;
+  
+      &:hover {
+        color: var(--light-grayish-blue-hover);
+      }
+    }
+  }
+
+  .filter-style {
+    margin: 0 5px;
+    font-size: 0.9rem;
+    color: var(--dark-grayish-blue);
+    transition: color 0.3s;
+  
+    &:hover {
+      color: var(--light-grayish-blue-hover);
+    }
+  
+    & input:checked + span {
+      color: lightskyblue;
+    }
+  }

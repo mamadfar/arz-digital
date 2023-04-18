@@ -1,0 +1,112 @@
+.new-todo {
+    display: flex;
+    flex-wrap: nowrap;
+    background-color: var(--todo-backgroun-color);
+    padding: 15px;
+    border-radius: 8px;
+  
+    input {
+      border: none;
+      width: 100%;
+      padding: 5px 2px 2px 5px;
+      outline: none;
+      font-size: 1em;
+      background-color: inherit;
+      color: var(--todo-text-color);
+      &[type="date"] {
+        width: 100%;
+        max-width: 180px;
+      }
+    }
+  
+    button {
+      @extend %button;
+      padding: 0;
+  
+      & span.circle {
+        @extend %circle;
+      }
+  
+    }
+  }
+  
+  .todos-list {
+    list-style: none;
+    margin: 1.5rem 0;
+    padding: 0;
+    width: 100%;
+    background-color: var(--todo-backgroun-color);
+    border: none;
+    border-radius: 8px;
+  
+    li {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 15px;
+  
+      &:not(:last-child) {
+        border-bottom: 1px solid var(--light-grayish-blue);
+      }
+  
+      &:not(:last-child) {
+        & > div {
+          button {
+            @extend %button;
+            padding: 0;
+  
+            & span.circle {
+              @extend %circle;
+            }
+            & span.checked {
+              display: inline-block;
+              width: 20px;
+              height: 20px;
+              background: linear-gradient(to right, hsl(192, 100%, 67%), hsl(280, 87%, 65%)) border-box;
+              border: 1px solid transparent;
+              border-radius: 50%;
+            vertical-align: bottom;
+              & img {
+                vertical-align: middle;
+              }
+            }
+          }
+        }
+      }
+  
+      p {
+        margin: 0 0 0 10px;
+        vertical-align: bottom
+      }
+  
+      & .remove-todo {
+        @extend %button;
+        opacity: 0;
+        visibility: hidden;
+        margin-left: auto;
+        cursor: pointer;
+        transition: opacity 0.3s, visibility 0.3s;
+      }
+  
+      &:hover .remove-todo {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+  }
+  
+  .completed {
+    text-decoration: line-through;
+    color: var(--dark-grayish-blue);
+  }
+
+  .mobile-filters {
+    display: flex;
+    flex-wrap: nowrap;
+    background-color: var(--todo-backgroun-color);
+    padding: 15px;
+    border-radius: 8px;
+    justify-content: center;
+    & label {
+        margin: 0 0.7rem;
+    }
+  }
