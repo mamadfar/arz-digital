@@ -1,7 +1,7 @@
 # Todo List
 First make sure that you are using the correct Node version as it mention in the `package.json` => `engines`
 
-- You can use `NVM` to switch between multiple node engine
+- You can use `Volta` to switch between multiple node engine [Volta](https://volta.sh/)
 
 ## Project setup
 ```
@@ -21,4 +21,3 @@ yarn serve
 
 ## Preview
 ![Todo](./src/assets/todo-preview.gif)
-
